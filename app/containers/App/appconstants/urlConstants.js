@@ -1,5 +1,5 @@
 var urls = {
-  login: 'http://10.31.87.23:81/api/customers/login',
+  login: 'http://35.200.172.68/api/customers/login',
   articleList: ''
 }
 
