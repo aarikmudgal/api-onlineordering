@@ -88,10 +88,13 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
         },
       )
         .then(function (response) {
+          debugger;
           let status = response.status === 200 ? loginStatus.LOGIN_SUCCESS : loginStatus.LOGIN_FAILED;
           me.setState({ status: status });
           console.log(response);
-          me.props.history.push('/features');
+          window.sessionStorage.setItem('CustomerId', response.data.Customer.CustomerId);
+          window.sessionStorage.setItem('CustomerName', response.data.Customer.FirstName+" "+response.data.Customer.LastName);
+          me.props.history.push('/articleDetails');
         })
         .catch(function (error) {
           me.setState({ status: loginStatus.LOGIN_FAILED });
@@ -147,8 +150,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             value={this.state.password}
             onChange={this.onPasswordChange.bind(this) }
             />
-          <div style={{ marginLeft: '20px', marginTop: '50px' }}>
-            <Button
+            <div style={{marginTop:'50px'}}>
+            <Button 
               TagName="button"
               block={true}
               disabled={false}
