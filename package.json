@@ -229,7 +229,7 @@
     "invariant": "2.2.2",
     "ip": "1.1.5",
     "lodash": "4.17.4",
-    "material-ui": "^0.20.0",
+    "material-ui": "^1.0.0-beta.39",
     "minimist": "1.2.0",
     "npm-registry": "^0.1.13",
     "object-assign": "^4.1.0",
