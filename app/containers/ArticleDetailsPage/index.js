@@ -11,7 +11,11 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+<<<<<<< HEAD
 import './Login.css';
+=======
+
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
@@ -29,8 +33,12 @@ import { makeSelectArticleDetails } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { Input, Button, Profile, ProfilePicture, ProfileDropdown, Description } from 'metro-ui-components';
+<<<<<<< HEAD
 import Card,{ CardHeader, CardContent, CardActions, CardMedia } from 'material-ui/Card';
 import Snackbar from 'material-ui/Snackbar';
+=======
+import Card, { CardHeader, CardContent, CardActions, CardMedia } from 'material-ui/Card';
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
 import Typography from 'material-ui/Typography';
 import imagelogo from './maggi.png';
 import TextField from 'material-ui/TextField';
@@ -42,9 +50,12 @@ const styles = {
   card: {
     display: 'flex',
   },
+<<<<<<< HEAD
   close: {
     
   },
+=======
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   details: {
     display: 'flex',
     flexDirection: 'column',
@@ -53,11 +64,19 @@ const styles = {
     flex: '1 0 auto',
   },
   cover: {
+<<<<<<< HEAD
     width: 200,
     height: 150,
     marginLeft: 600,
     backgroundSize: 'contain',
     marginTop: -180
+=======
+    width: 120,
+    height: 150,
+    marginLeft: 100,
+    backgroundSize: 'contain',
+    marginTop: 30
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   },
   controls: {
     display: 'flex',
@@ -73,6 +92,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
   /**
    * when initial state username is not null, submit the form to load repos
    */
+<<<<<<< HEAD
   constructor(props) {
     super(props)
     count: 0
@@ -102,6 +122,29 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     me.props.history.push('/orderDetails');
   }
   fetchOrderDetails() {
+=======
+  constructor() {
+    super()
+    count: 0
+    this.state = { articleDetails: [], quantity: 0 ,cartItemsCount:0}
+    this.handleQuantityChange.bind(this);
+  }
+  componentDidMount() {
+    this.fetchArticleDetails();    
+    this.createNewOrder();
+    if(window.sessionStorage.getItem('OrderId'))
+      {
+        this.fetchOrderDetails();
+      }
+  }
+  onCartClick(e){
+    e.preventDefault();
+    let me=this;
+    me.props.history.push('/orderDetails');
+  }
+  fetchOrderDetails()
+  {
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     let me = this;
     let url = urlContants.orderDetails.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'));
     axios.get(url, {
@@ -112,8 +155,14 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     })
       .then(function (response) {
         if (response.status === 200) {
+<<<<<<< HEAD
           window.sessionStorage.setItem('cartItemsCount', response.data.articles.length);
           me.setstate({ cartItemsCount: response.data.articles.length })
+=======
+          debugger
+          window.sessionStorage.setItem('cartItemsCount', response.data.articles.length);
+          me.setstate({cartItemsCount:response.data.articles.length})
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
         }
         console.log(response);
       })
@@ -124,7 +173,11 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       });
   }
   createNewOrder() {
+<<<<<<< HEAD
     let me = this;
+=======
+     let me=this;
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     let orderdata = {
       "customerId": window.sessionStorage.getItem('CustomerId'),
       "status": 1,
@@ -140,7 +193,12 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       },
     )
       .then(function (response) {
+<<<<<<< HEAD
         if (response.status === 200) {
+=======
+        if (response.status === 200) {    
+          debugger;      
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
           window.sessionStorage.setItem('OrderId', response.data.OrderId);
           // window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
           // me.setstate({cartItemsCount:response.data.Order.Articles.length})
@@ -161,7 +219,10 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       .then(function (response) {
         if (response.status === 200) {
           me.setState({ articleDetails: response.data });
+<<<<<<< HEAD
           window.sessionStorage.getItem('cartItemsCount')
+=======
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
         }
         console.log(response);
       })
@@ -171,30 +232,49 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
         //me.setState({passwordError:'Login failed! Username or password is incorrect'}); 
       });
   }
+<<<<<<< HEAD
   // isDigits(e) {
   //   // Returns true if string contains only digits 0 - 9 -?(\d+|\d+\.\d+|\.\d+)([eE][-+]?\d+)?
   //   var intRegex = /^[-]\?\d{1,2}([.]\d{1,2})?$/;
   //   return intRegex.test(e);
   // }
   handleQuantityChange(e, article) {
+=======
+  handleQuantityChange(e,article) {
+    
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     if (e.target.value > 0) {
       article.Quantity = e.target.value;
     }
 
+<<<<<<< HEAD
 
 
   }
   handleArticleAdd(article) {
     let me = this;
+=======
+  }
+  handleArticleAdd(article) {
+    let me=this;
+    debugger;
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     let articleToAdd = {
       'ArticleId': article.articleId,
       'ArticleName': article.articleName,
       'ArticleDescription': article.articleDescription,
       'ArticlePrice': article.articlePrice,
       'Quantity': article.Quantity,
+<<<<<<< HEAD
       'ImageUrl': article.articleImageUrl
     }
     let url = urlContants.articleAdd.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'));
+=======
+      'ImageUrl':article.articleImageUrl
+    }
+    let url = urlContants.articleAdd.replace("[ORDER_ID]",window.sessionStorage.getItem('OrderId'));
+    debugger;
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     axios.post(url,
       JSON.stringify(articleToAdd), {
         headers: {
@@ -205,10 +285,17 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     )
       .then(function (response) {
         if (response.status === 200) {
+<<<<<<< HEAD
           window.sessionStorage.setItem('OrderId', response.data.Order.OrderId);
           window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
           me.setState({ cartItemsCount: response.data.Order.Articles.length });
           me.setState({ open: true })
+=======
+          debugger;
+          window.sessionStorage.setItem('OrderId', response.data.Order.OrderId);
+          window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
+          me.setState({cartItemsCount:response.data.Order.Articles.length});
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
           console.log(this.state.cartItemsCount);
         }
         else {
@@ -218,6 +305,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       .catch(function (error) {
         console.log(error);
       });
+<<<<<<< HEAD
 
   }
   logout(e) {
@@ -226,6 +314,11 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     let me = this;
     me.props.history.push('/');
   }
+=======
+    
+  }
+ 
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   render() {
     const { loading, error, repos } = this.props;
     const reposListProps = {
@@ -235,6 +328,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     };
     var ArticleDetails = this.state.articleDetails;
     console.log(ArticleDetails);
+<<<<<<< HEAD
     let i = 0;
     return (
       <div>
@@ -260,6 +354,31 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
             return (
               <div key={i + 1} style={{ padding: '10px' }}>
                 <Card id="acard" style={styles.card}>
+=======
+    let i=0;
+    return (
+      <div>
+      <div>
+        <Profile>
+          <ProfilePicture />
+          <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
+          </Profile.Content>
+          <Profile.Buttons>
+            <span style={{ color: '#1a3b7c', fontSize: 'larger' }}>Items:</span>
+            <input style={{ color: '#1a3b7c', width: '30px' }} name='counter' id='cartcounter' type='number' 
+            value={window.sessionStorage.getItem('cartItemsCount')} />
+            <img src={require("./shopping-cart.png")} onClick={this.onCartClick.bind(this)}/>
+          </Profile.Buttons>
+        </Profile>
+      </div>
+
+        <div className='row' style={{ height: '1500px', overflowY: 'scroll' }}>
+          {ArticleDetails && ArticleDetails.map((articleStore,i) => {
+            articleStore.Quantity=1;
+            return (
+              <div key={i+1} style={{ padding: '10px' }}>
+                <Card style={styles.card}>
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
                   <div style={styles.details}>
                     <CardContent style={styles.content}>
                       <Typography variant="headline">{articleStore.articleName}</Typography>
@@ -270,6 +389,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                         <Typography style={{ color: 'red', fontSize: 'large', marginTop: '35px' }}>
                           Price:
                       </Typography>
+<<<<<<< HEAD
                         <span style={{ marginTop: '37px' }}> {"€ " + articleStore.articlePrice}</span>
                         <TextField style={{ marginLeft: '200px' }}
                           id="qty"
@@ -281,11 +401,21 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                           inputmode="numeric"
                           //value = {this.state.quantity}
                           onChange={(e) => this.handleQuantityChange(e, articleStore)}
+=======
+                        <span style={{ marginTop: '35px' }}> {"€ " + articleStore.articlePrice}</span>
+                        <TextField style={{ marginLeft: '100px' }}
+                          id="qty"
+                          label="Qty"
+                          type="number"                          
+                          //value = {articleStore.Quantity}
+                          onChange={(e) => this.handleQuantityChange(e, articleStore )}
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
                           margin="normal"
                         />
                       </div>
                     </CardContent>
                     <CardActions style={{ marginLeft: '10px' }}>
+<<<<<<< HEAD
                       <Button size="large" onClick={this.handleArticleAdd.bind(this, articleStore)}>Add</Button>
                       <CardMedia
                         style={styles.cover}
@@ -294,17 +424,29 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                     </CardActions>
                   </div>
 
+=======
+                      <Button size="small" onClick={this.handleArticleAdd.bind(this, articleStore)}>Add</Button>
+                    </CardActions>
+                  </div>
+                  <CardMedia
+                    style={styles.cover}
+                    image={articleStore.articleImageUrl}
+                  />
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
                 </Card>
               </div>
             );
           })}
         </div>
+<<<<<<< HEAD
         <Snackbar
           open={this.state.open}
           message="Article added successfully"
           autoHideDuration={4000}
           onClose={this.handleRequestClose.bind(this)}
         />
+=======
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
       </div>
     )
   }

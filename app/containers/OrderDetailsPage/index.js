@@ -31,7 +31,12 @@ import saga from './saga';
 import { Input, Button, Icon, Profile, ProfilePicture, ProfileDropdown, Description } from 'metro-ui-components';
 import Card, { CardHeader, CardContent, CardActions, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+<<<<<<< HEAD
 import imagelogo from './emptycart.png';
+=======
+import imagelogo from './maggi.png';
+import imagelogo1 from './lays.png';
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
 import TextField from 'material-ui/TextField';
 import Header from 'components/Header';
 import SvgIcon from 'material-ui/SvgIcon';
@@ -50,25 +55,40 @@ const styles = {
   details: {
     display: 'flex',
     flexDirection: 'column',
+<<<<<<< HEAD
     marginLeft: 100
+=======
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   },
   content: {
     flex: '1 0 auto',
   },
   cover: {
+<<<<<<< HEAD
     width: 200,
     height: 150,
     marginLeft: 200,
     backgroundSize: 'contain',
     margin: 40
+=======
+    width: 150,
+    height: 150,
+    margin: 30
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
 
   },
+<<<<<<< HEAD
   buttonStyle: {
     marginLeft: '200px', marginTop: '-30px'
+=======
+  playIcon: {
+    height: 38,
+    width: 38,
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   },
 };
 export class OrderDetailsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -84,22 +104,38 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
   componentDidMount() {
     this.fetchOrderDetails();
   }
+<<<<<<< HEAD
   handleRemoveArticle(e, article) {
     let me = this;
     let url = urlContants.articleDelete.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'))
       .replace("[ARTICLE_ID]", article.ArticleId);
 
+=======
+  handleRemoveArticle(e,article)
+  {
+    let me = this;
+    let url = urlContants.articleDelete.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'))
+                                      .replace("[ARTICLE_ID]", article.ArticleId);
+                                      
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
     axios.delete(url, {
       headers: {
         'customerId': window.sessionStorage.getItem('CustomerId'),
         'Content-Type': 'application/json',
       }
     })
+<<<<<<< HEAD
       .then(function (response) {
         if (response.status === 200) {
           
           me.setState({ orderDetails: response.data.Order });     
           window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
+=======
+    .then(function (response) {
+        if (response.status === 200) {
+          debugger;
+          me.setState({ orderDetails: response.data.Order });
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
         }
         console.log(response);
       })
@@ -119,12 +155,20 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       }
     })
       .then(function (response) {
+<<<<<<< HEAD
 
         if (response.status === 200) {
           window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
           me.setState({ orderDetails: response.data.Order });
         }
         console.log('aaaaa',response);
+=======
+        debugger;
+        if (response.status === 200) {
+          me.setState({ orderDetails: response.data.Order });
+        }
+        console.log(response);
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
       })
       .catch(function (error) {
         console.log(error);
@@ -144,6 +188,7 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     let me = this;
     me.props.history.push('/articleDetails');
   }
+<<<<<<< HEAD
   logout(e) {
     e.preventDefault();
     localStorage.clear();
@@ -161,12 +206,16 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     let me = this;
     me.props.history.push('/articleDetails');
   }
+=======
+
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   render() {
     const { loading, error, repos } = this.props;
     const reposListProps = {
       loading,
       error,
       repos,
+<<<<<<< HEAD
     }
     
     var OrderDetails = this.state.orderDetails;
@@ -292,6 +341,83 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       )
     }
 
+=======
+    };
+    var OrderDetails = this.state.orderDetails;
+    debugger
+    return (
+      <div>
+        <div>
+          <Profile>
+            <ProfilePicture />
+            <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
+            </Profile.Content>
+            <Profile.Buttons>
+              <span style={{ color: '#1a3b7c', fontSize: 'larger' }}>Items:</span>
+              <input style={{ color: '#1a3b7c', width: '30px' }} name='counter' id='cartcounter' type='number' value='1' onChange={this.handleChange.bind(this)} />
+              <img src={require("./shopping-cart.png")} />
+            </Profile.Buttons>
+          </Profile>
+        </div>
+        {OrderDetails && OrderDetails.Articles 
+            && OrderDetails.Articles.map((articleStore) => {
+          return (
+            <div style={{ padding: '10px' }}>
+              <Card style={styles.card}>
+                <div className='col-md-4'>
+                  <CardMedia
+                    style={styles.cover}
+                    image={articleStore.ImageUrl}
+                  />
+                </div>
+                <div style={styles.details} className='col-md-6'>
+                  <CardContent style={styles.content}>
+                    <Typography variant="headline">{articleStore.ArticleName}</Typography>
+                    <Typography variant="subheading" color="textSecondary">
+                      {articleStore.ArticleDescription}
+                    </Typography>
+                    <div style={{ display: 'flex' }}>
+                      <Typography style={{ color: 'red', fontSize: 'large', marginTop: '35px' }}>
+                        Price:
+                      </Typography>
+                      <span style={{ marginTop: '35px' }}> {articleStore.ArticlePrice}</span>
+                    </div>
+                    <TextField
+                      id="qty"
+                      label="Qty"
+                      type="number"
+                      onChange={this.handleChange.bind(this)}
+                      margin="normal"
+                      value={articleStore.Auantity}
+                    />
+                  </CardContent>
+                </div>
+                <div className='col-md-8' style={{ marginTop: '100px', marginRight: '20px' }}>
+                  <CardContent>
+                    <Button kind="primaryRaised" onClick={(e) => this.handleRemoveArticle(e, articleStore )}>
+                      Remove
+                      </Button>
+                  </CardContent>
+                </div>
+
+              </Card>
+            </div>
+
+          );
+        })}
+        <div style={{ marginLeft: '100px', width: '75%' }}>
+          <Button
+            kind="primaryRaised"
+            size="large"
+            block
+            colorOverride="dark-blue"
+          >
+            Checkout
+        </Button>
+        </div>
+      </div>
+    )
+>>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
   }
 }
 
