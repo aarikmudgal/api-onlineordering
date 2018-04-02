@@ -94,10 +94,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           console.log(response);
           window.sessionStorage.setItem('CustomerId', response.data.Customer.CustomerId);
           window.sessionStorage.setItem('CustomerName', response.data.Customer.FirstName+" "+response.data.Customer.LastName);
-<<<<<<< HEAD
-         window.sessionStorage.getItem('cartItemsCount')
-=======
->>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
+          window.sessionStorage.getItem('cartItemsCount')
           me.props.history.push('/articleDetails');
         })
         .catch(function (error) {
