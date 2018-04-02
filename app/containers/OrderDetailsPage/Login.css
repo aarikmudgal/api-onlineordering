@@ -1,0 +1,69 @@
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+  .list-group-item-action {
+    width: 100%;
+    color: #495057;
+    text-align: inherit;
+}
+  .animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+ .align-items-start {
+    -ms-flex-align: start !important;
+    align-items: flex-start !important;
+}
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+  .img-fluid {
+    width: 120px !important;
+    height: 120px !important;
+}
+  .form-group {
+    margin-bottom: 1rem;
+}
+  
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+  .list-group {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+  .card {
+  position: relative;
+  display: block;
+  margin-bottom: .75rem;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: .25rem;
+  height: auto;
+}
+#acard:hover
+  {
+    background-color: #e6e6e6;
+  }

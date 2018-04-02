@@ -88,10 +88,14 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
         },
       )
         .then(function (response) {
+          debugger;
           let status = response.status === 200 ? loginStatus.LOGIN_SUCCESS : loginStatus.LOGIN_FAILED;
           me.setState({ status: status });
           console.log(response);
-          me.props.history.push('/features');
+          window.sessionStorage.setItem('CustomerId', response.data.Customer.CustomerId);
+          window.sessionStorage.setItem('CustomerName', response.data.Customer.FirstName+" "+response.data.Customer.LastName);
+         window.sessionStorage.getItem('cartItemsCount')
+          me.props.history.push('/articleDetails');
         })
         .catch(function (error) {
           me.setState({ status: loginStatus.LOGIN_FAILED });
@@ -122,7 +126,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 
       <div className='Panel'>
         <h1 className='headline'>Welcome To Online Ordering</h1>
-        <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px', marginBottom: '10px' }}>
+        <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px' }}>
           <Input
             id="custid"
             type="text"
@@ -147,8 +151,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             value={this.state.password}
             onChange={this.onPasswordChange.bind(this) }
             />
-          <div style={{ marginLeft: '20px', marginTop: '50px' }}>
-            <Button
+            <div style={{marginTop:'50px'}}>
+            <Button 
               TagName="button"
               block={true}
               disabled={false}

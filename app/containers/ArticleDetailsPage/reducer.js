@@ -12,18 +12,18 @@
 import { fromJS } from 'immutable';
 
 import {
-  CUSTOMER_AUTHENTICATE,
+  ARTICLE_DETAILS,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  status: false,
+  status:false
 });
 
-function loginReducer(state = initialState, action) {
+function articleDetailsReducer(state = initialState, action) {
   switch (action.type) {
-    case CUSTOMER_AUTHENTICATE:
-debugger;
+    case ARTICLE_DETAILS:
+
       // Delete prefixed '@' from the github username
       return state
         .set('status', action.status);
@@ -32,4 +32,4 @@ debugger;
   }
 }
 
-export default loginReducer;
+export default articleDetailsReducer;
