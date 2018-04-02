@@ -16,10 +16,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import ArticleDetailsPage from 'containers/ArticleDetailsPage/Loadable';
 import OrderDetailsPage from 'containers/OrderDetailsPage/Loadable';
-<<<<<<< HEAD
 import CheckoutPage from 'containers/CheckoutPage/Loadable';
-=======
->>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
+
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -50,10 +48,7 @@ export default function App() {
         <Route exact path="/" component={LoginPage} />
         <Route path="/articleDetails" component={ArticleDetailsPage} />
         <Route path="/orderDetails" component={OrderDetailsPage} />
-<<<<<<< HEAD
         <Route path="/checkout" component={CheckoutPage} />
-=======
->>>>>>> 7a5e76f9bc556e1ee851c646a03fdce70c7ac961
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
