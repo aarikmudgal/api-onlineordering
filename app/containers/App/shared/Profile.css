@@ -1,0 +1,14 @@
+
+  #acard:hover
+  {
+    background-color: #e6e6e6;
+  }
+  #imagecart:hover{
+ cursor: pointer;
+}
+.m-profile{
+  position:fixed!important;
+  z-index: 10!important;
+  width: 100%;
+  left:0
+}

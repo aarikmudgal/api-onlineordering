@@ -28,14 +28,15 @@ import { changeUsername } from './actions';
 import { makeSelectArticleDetails } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Input, Button, Profile, ProfilePicture, ProfileDropdown, Description } from 'metro-ui-components';
-import Card,{ CardHeader, CardContent, CardActions, CardMedia } from 'material-ui/Card';
+import { Input, Button, Profile, ProfilePicture, ProfileDropdown, Description,ScrollToTopButton } from 'metro-ui-components';
+import Card, { CardHeader, CardContent, CardActions, CardMedia } from 'material-ui/Card';
 import Snackbar from 'material-ui/Snackbar';
 import Typography from 'material-ui/Typography';
 import imagelogo from './maggi.png';
 import TextField from 'material-ui/TextField';
 import Header from 'components/Header';
 import axios from 'axios';
+import Profilepanel from '../App/shared/Profilepanel';
 const urlContants = require('../App/appconstants/urlConstants');
 
 const styles = {
@@ -43,7 +44,7 @@ const styles = {
     display: 'flex',
   },
   close: {
-    
+
   },
   details: {
     display: 'flex',
@@ -75,32 +76,28 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
    */
   constructor(props) {
     super(props)
-    count: 0
     this.state = { articleDetails: [], quantity: 0, cartItemsCount: 0, open: false }
     this.handleQuantityChange.bind(this);
   }
   componentDidMount() {
+    debugger
     this.fetchArticleDetails();
     this.createNewOrder();
-    window.sessionStorage.getItem('cartItemsCount')
+    //this.fetchOrderDetails();
     if (window.sessionStorage.getItem('OrderId')) {
       this.fetchOrderDetails();
     }
   }
 
 
-  handleRequestClose(){
+  handleRequestClose() {
     this.setState({
       open: false,
     })
   };
 
 
-  onCartClick(e) {
-    e.preventDefault();
-    let me = this;
-    me.props.history.push('/orderDetails');
-  }
+
   fetchOrderDetails() {
     let me = this;
     let url = urlContants.orderDetails.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'));
@@ -112,8 +109,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     })
       .then(function (response) {
         if (response.status === 200) {
-          window.sessionStorage.setItem('cartItemsCount', response.data.articles.length);
-          me.setstate({ cartItemsCount: response.data.articles.length })
+          window.sessionStorage.setItem('cartItemsCount', response.data.orderedArticles.length);
         }
         console.log(response);
       })
@@ -126,10 +122,10 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
   createNewOrder() {
     let me = this;
     let orderdata = {
-      "customerId": window.sessionStorage.getItem('CustomerId'),
-      "status": 1,
-      "orderTotalPrice": 0,
-      "articles": []
+      "CustomerId": window.sessionStorage.getItem('CustomerId'),
+      "Status": 1,
+      "OrderTotalPrice": 0,
+      "OrderedArticles": []
     }
     axios.post(urlContants.orders,
       JSON.stringify(orderdata), {
@@ -140,10 +136,12 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       },
     )
       .then(function (response) {
+        debugger;
         if (response.status === 200) {
-          window.sessionStorage.setItem('OrderId', response.data.OrderId);
-          // window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
-          // me.setstate({cartItemsCount:response.data.Order.Articles.length})
+          let order = JSON.parse(response.data.Order);
+          window.sessionStorage.setItem('OrderId', order.OrderId);
+          window.sessionStorage.setItem('cartItemsCount', order.OrderedArticles.length);
+          me.setstate({cartItemsCount: order.OrderedArticles.length})
         }
         else {
           console.log("Error recieved while fetching order : " + response.status);
@@ -161,7 +159,7 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       .then(function (response) {
         if (response.status === 200) {
           me.setState({ articleDetails: response.data });
-          window.sessionStorage.getItem('cartItemsCount')
+          
         }
         console.log(response);
       })
@@ -180,8 +178,6 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     if (e.target.value > 0) {
       article.Quantity = e.target.value;
     }
-
-
 
   }
   handleArticleAdd(article) {
@@ -204,10 +200,12 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       }
     )
       .then(function (response) {
+        debugger
         if (response.status === 200) {
-          window.sessionStorage.setItem('OrderId', response.data.Order.OrderId);
-          window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
-          me.setState({ cartItemsCount: response.data.Order.Articles.length });
+          let order = JSON.parse(response.data.UpdatedOrder);
+          window.sessionStorage.setItem('OrderId', order.OrderId);
+          window.sessionStorage.setItem('cartItemsCount', order.OrderedArticles.length);
+          me.setState({ cartItemsCount: order.OrderedArticles.length });
           me.setState({ open: true })
           console.log(this.state.cartItemsCount);
         }
@@ -220,11 +218,13 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
       });
 
   }
-  logout(e) {
+  onCartClick(e) {
     e.preventDefault();
-    localStorage.clear();
-    let me = this;
-    me.props.history.push('/');
+    this.props.history.push('/orderDetails');
+  }
+  handleTop()
+  {
+    window.scrollTo(0, 0)
   }
   render() {
     const { loading, error, repos } = this.props;
@@ -239,27 +239,16 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
     return (
       <div>
         <div>
-          <Profile>
-            <ProfilePicture />
-            <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
-            </Profile.Content>
-            <Profile.Buttons>
-              <span style={{ color: '#1a3b7c', fontSize: 'larger' }}>Items:</span>
-              <input style={{ color: '#1a3b7c', width: '30px' }} name='counter' id='cartcounter' type='number'
-                value={window.sessionStorage.getItem('cartItemsCount')} />
-              <img src={require("./shopping-cart.png")} onClick={this.onCartClick.bind(this)} />
-              <div style={{ marginLeft: '50px' }}>
-                <a href="#" onClick={this.logout.bind(this)}><img src={require("./logout.png")} /></a>
-              </div>
-            </Profile.Buttons>
-          </Profile>
+          <Profilepanel onCartClick={this.onCartClick.bind(this)} 
+                cartItemsCount={window.sessionStorage.getItem('cartItemsCount')}     />
         </div>
-        <div style={{ height: '1500px', overflowY: 'scroll' }}>
+        <div style={{ paddingTop:'90px' }}>
           {ArticleDetails && ArticleDetails.map((articleStore, i) => {
             articleStore.Quantity = 1;
+            let imageUrl = urlContants.articleImage.replace("[IMAGE_URL]", articleStore.articleImageUrl); 
             return (
-              <div key={i + 1} style={{ padding: '10px' }}>
-                <Card id="acard" style={styles.card}>
+              <div key={i + 1} style={{ padding: '10px'}}>
+                <Card id="acard" style={styles.card}> 
                   <div style={styles.details}>
                     <CardContent style={styles.content}>
                       <Typography variant="headline">{articleStore.articleName}</Typography>
@@ -274,11 +263,11 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                         <TextField style={{ marginLeft: '200px' }}
                           id="qty"
                           label="Qty"
-                          type="number"
+                          type="number" 
                           min="0"
+                          defaultValue="1"
                           required
                           pattern={/^[0-9\b]+$/}
-                          inputmode="numeric"
                           //value = {this.state.quantity}
                           onChange={(e) => this.handleQuantityChange(e, articleStore)}
                           margin="normal"
@@ -288,8 +277,9 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                     <CardActions style={{ marginLeft: '10px' }}>
                       <Button size="large" onClick={this.handleArticleAdd.bind(this, articleStore)}>Add</Button>
                       <CardMedia
+                      id="articleimage"
                         style={styles.cover}
-                        image={articleStore.articleImageUrl}
+                        image={imageUrl}
                       />
                     </CardActions>
                   </div>
@@ -305,6 +295,9 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
           autoHideDuration={4000}
           onClose={this.handleRequestClose.bind(this)}
         />
+        <ScrollToTopButton visible onClick={this.handleTop.bind(this)}>
+          ScrollToTopButton
+        </ScrollToTopButton>
       </div>
     )
   }

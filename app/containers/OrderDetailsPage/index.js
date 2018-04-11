@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import Profilepanel from '../App/shared/Profilepanel';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -35,6 +36,7 @@ import imagelogo from './emptycart.png';
 import TextField from 'material-ui/TextField';
 import Header from 'components/Header';
 import SvgIcon from 'material-ui/SvgIcon';
+import pricetag from './pricetag.png'
 import './Login.css';
 const urlContants = require('../App/appconstants/urlConstants');
 const styles = {
@@ -43,6 +45,9 @@ const styles = {
   },
   rightIcon: {
     marginLeft: '2px',
+  },
+  icon: {
+    marginLeft: '40px'
   },
   card: {
     display: 'flex',
@@ -84,6 +89,11 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
   componentDidMount() {
     this.fetchOrderDetails();
   }
+  onCartClick(e) {
+    e.preventDefault();
+    this.props.history.push('/orderDetails');
+  }
+
   handleRemoveArticle(e, article) {
     let me = this;
     let url = urlContants.articleDelete.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'))
@@ -97,9 +107,10 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     })
       .then(function (response) {
         if (response.status === 200) {
-          
-          me.setState({ orderDetails: response.data.Order });     
-          window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
+          debugger
+          //me.setState({ orderDetails: response.data.Order });     
+          //window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
+          me.fetchOrderDetails();
         }
         console.log(response);
       })
@@ -119,12 +130,13 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       }
     })
       .then(function (response) {
-
+debugger;
         if (response.status === 200) {
-          window.sessionStorage.setItem('cartItemsCount', response.data.Order.Articles.length);
-          me.setState({ orderDetails: response.data.Order });
+          let order = JSON.parse(response.data.Order)
+          window.sessionStorage.setItem('cartItemsCount', order.OrderedArticles.length);
+          me.setState({ orderDetails: order });
         }
-        console.log('aaaaa',response);
+        console.log('aaaaa', response);
       })
       .catch(function (error) {
         console.log(error);
@@ -139,16 +151,6 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     this.setState({
       count: this.state.count + 1
     });
-  }
-  handleBackClick(e) {
-    let me = this;
-    me.props.history.push('/articleDetails');
-  }
-  logout(e) {
-    e.preventDefault();
-    localStorage.clear();
-    let me = this;
-    me.props.history.push('/');
   }
   onButtonClick(e) {
     var OrderDetails = this.state.orderDetails;
@@ -168,28 +170,20 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       error,
       repos,
     }
-    
+debugger;
     var OrderDetails = this.state.orderDetails;
     console.log('dhdhdhdhh', OrderDetails)
     let i = 0;
-    if (this.state.orderDetails.Articles == 0 || this.state.orderDetails == null || this.state.orderDetails == undefined) {
+
+    if (this.state.orderDetails.OrderedArticles == 0 || this.state.orderDetails == null || this.state.orderDetails == undefined) {
+      debugger;
       return (
         <div>
           <div>
-            <Profile>
-              <img style={{ marginRight: '10px' }} src={require("./back.png")} onClick={this.handleBackClick.bind(this)} />
-              <ProfilePicture />
-              <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
-              </Profile.Content>
-              <Profile.Buttons>
-                <img src={require("./shopping-cart.png")} />
-                <div style={{ marginLeft: '50px' }}>
-                  <a href="#" onClick={this.logout.bind(this)}><img src={require("./logout.png")} /></a>
-                </div>
-              </Profile.Buttons>
-            </Profile>
+            <Profilepanel onCartClick={this.onCartClick.bind(this)}
+            />
           </div>
-          <Card id="acard" style={{ margin: '20px' ,height:'100%'}}>
+          <Card id="acard" style={{ margin: '20px',paddingTop:'100px', height: '100%' }}>
             <CardMedia>
               <div style={{ marginLeft: '22%' }}>
                 <img src={require("./emptycart.png")} />
@@ -207,76 +201,48 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     else {
       return (
         <div>
-          <div>
-            <Profile>
-              <img style={{ marginRight: '10px' }} src={require("./back.png")} onClick={this.handleBackClick.bind(this)} />
-              <ProfilePicture />
-              <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
-              </Profile.Content>
-              <Profile.Buttons>
-                <span style={{ color: '#1a3b7c', fontSize: 'larger' }}>Items:</span>
-                <input style={{ color: '#1a3b7c', width: '30px' }} name='counter' id='cartcounter' type='number'
-                  value={window.sessionStorage.getItem('cartItemsCount')} />
-                <img src={require("./shopping-cart.png")} />
-                <div style={{ marginLeft: '50px' }}>
-                  <a href="#" onClick={this.logout.bind(this)}><img src={require("./logout.png")} /></a>
-                </div>
-              </Profile.Buttons>
-            </Profile>
+          <div style={{ marginBottom: '90px' }}>
+            <Profilepanel onCartClick={this.onCartClick.bind(this)}
+                cartItemsCount={window.sessionStorage.getItem('cartItemsCount')}    />
           </div>
-          {OrderDetails && OrderDetails.Articles
-            && OrderDetails.Articles.map((articleStore, i) => {
-              return (
-                <div key={i + 1} style={{ padding: '10px' }}>
-                  <Card id="acard" style={styles.card}>
-                    <div className='row'>
-                      <div className='col-md-4'>
-                        <CardMedia
-                          style={styles.cover}
-                          image={articleStore.ImageUrl}
-                        />
-                      </div>
-                      <div style={styles.details} className='col-md-4'>
-                        <CardContent style={styles.content}>
-                          <Typography variant="headline">{articleStore.ArticleName}</Typography>
-                          <Typography variant="subheading" color="textSecondary">
-                            {articleStore.ArticleDescription}
-                          </Typography>
-                          <div style={{ display: 'flex' }}>
-                            <Typography style={{ color: 'red', fontSize: 'large', marginTop: '35px' }}>
-                              Price:
-                      </Typography>
-                            <span style={{ marginTop: '35px' }}> {"€ " + articleStore.ArticlePrice}</span>
-                            <Typography style={{ color: 'red', fontSize: 'large', marginTop: '35px', marginLeft: '110px' }}>
-                              TotalPrice:
-                      </Typography>
-                            <span style={{ marginTop: '35px' }}> {"€ " + articleStore.TotalPrice}</span>
+          <div>
+            <ul className="product-list">
+              {OrderDetails && OrderDetails.OrderedArticles
+                && OrderDetails.OrderedArticles.map((articleStore, i) => {
+                  let imageUrl = urlContants.articleImage.replace("[IMAGE_URL]", articleStore.ImageUrl);
+                  return (
+
+
+                    <li className="product-list__item">
+                      <div className="product thumbnail">
+                        <img src={imageUrl} alt="product" style={{ width: '150px', height: '150px' }} />
+                        <div className="caption">
+                          <h3>{articleStore.ArticleName}</h3>
+                          <span style={{display:'flex'}}>
+                          <h5 style={{ marginRight: '146px' }}>{articleStore.ArticleDescription}</h5>
+                          <h5 style={{ color: 'red' }}>Units:{articleStore.Quantity}</h5>
+                          </span>
+                          <img src={require("./pricetag2.png")} />
+                          <div className="product__price">{"€ " + articleStore.ArticlePrice}</div>
+                          <img style={styles.icon} src={require("./pricetag.png")} />
+                          <div className="product__price">{"€ " + articleStore.TotalPrice}</div>
+                          <div className="product__button-wrap">
+                            <button
+                              className={'btn btn-danger'}
+                              onClick={(e) => this.handleRemoveArticle(e, articleStore)}
+                            >
+                              Remove
+                        </button>
                           </div>
-                          <div style={{ display: 'flex' }}>
-                            <TextField
-                              id="qty"
-                              label="Qty"
-                              type="number"
-                              onChange={this.handleChange.bind(this)}
-                              margin="normal"
-                              value={articleStore.Quantity}
-                            />
-
-                            <div style={styles.buttonStyle}>
-                              <Button kind="primaryRaised" onClick={(e) => this.handleRemoveArticle(e, articleStore)}>
-                                Remove
-                      </Button>
-                            </div>
-                          </div>
-                        </CardContent>
+                        </div>
                       </div>
+                    </li>
 
-                    </div>
-                  </Card>
-                </div>
+                  );
+                })}
 
-              );
-            })}
+            </ul>
+          </div>
           <div>
             <Button
               kind="primaryRaised"
@@ -288,7 +254,7 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
               Checkout  (Grand Total  €{OrderDetails.OrderTotalPrice})
         </Button>
           </div>
-        </div>
+        </div >
       )
     }
 

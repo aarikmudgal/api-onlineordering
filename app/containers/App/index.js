@@ -12,13 +12,14 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import LoginPage from 'containers/LoginPage/Loadable';
+import SigninPage from 'containers/SigninPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import ArticleDetailsPage from 'containers/ArticleDetailsPage/Loadable';
 import OrderDetailsPage from 'containers/OrderDetailsPage/Loadable';
 import CheckoutPage from 'containers/CheckoutPage/Loadable';
-
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import HealthCheckPage from 'containers/HealthCheckPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
@@ -49,6 +50,8 @@ export default function App() {
         <Route path="/articleDetails" component={ArticleDetailsPage} />
         <Route path="/orderDetails" component={OrderDetailsPage} />
         <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/health" component={HealthCheckPage} />
+        <Route path="/signin" component={SigninPage}/>
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

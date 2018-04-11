@@ -7,7 +7,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl'
+import Profilepanel from '../App/shared/Profilepanel';;
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -147,26 +148,11 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
     return (
       <div>
         <div>
-          <Profile>
-            <img style={{marginRight:'10px'}}src={require("./back.png")} onClick={this.handleBackClick.bind(this)}/>
-            <ProfilePicture />
-            <Profile.Content title={window.sessionStorage.getItem('CustomerName')}>
-            </Profile.Content>
-            <Profile.Buttons>
-              <span style={{ color: '#1a3b7c', fontSize: 'larger' }}>Items:</span>
-              <input style={{ color: '#1a3b7c', width: '30px' }} name='counter' id='cartcounter' type='number'
-                value={window.sessionStorage.getItem('cartItemsCount')} />
-              <img src={require("./shopping-cart.png")} onClick={this.onCartClick.bind(this)} />
-              <div style={{ marginLeft: '50px' }}>
-                <a href="#" onClick={this.logout.bind(this)}><img src={require("./logout.png")} /></a>
-              </div>
-            </Profile.Buttons>
-          </Profile>
-        </div>
-        <Card style={{ margin: '20px' }}>
+            <Profilepanel onCartClick={this.onCartClick.bind(this)} 
+                     />
+          </div>
+        <Card style={{ marginTop: '120px',marginLeft:'10px',marginRight:'10px' }}>
           <h1 className='headline'>Checkout</h1>
-          <img style={{ marginLeft: '25%',width:'50%',height:'50%' }}src={require("./checkout.png")} />
-         
           <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px', marginBottom: '10px'}}>
             <h1 className='hl'>Add Customer Details</h1>
             <Input.Text

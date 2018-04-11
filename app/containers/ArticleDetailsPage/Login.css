@@ -26,3 +26,9 @@
   {
     background-color: #e6e6e6;
   }
+  #imagecart:hover{
+ cursor: pointer;
+}
+#articleimage:hover{
+  background-color: #e6e6e6;
+}

@@ -1,73 +1,35 @@
 
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+.Panel{
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+    color: rgb(68, 68, 68);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    line-height: 1.45;
+    font-size: 15px;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 3px;
+    background-color: rgb(255, 255, 255);
+    
 }
-  .list-group-item-action {
-    width: 100%;
-    color: #495057;
-    text-align: inherit;
+  .m-input-element.m-input-hasIcon {
+    padding-right: 0.75rem !important;
 }
-  .animated {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
- .align-items-start {
-    -ms-flex-align: start !important;
-    align-items: flex-start !important;
-}
-  .row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-  .img-fluid {
-    width: 120px !important;
-    height: 120px !important;
-}
-  .form-group {
-    margin-bottom: 1rem;
-}
-  
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: .5rem .75rem;
-    font-size: 1rem;
-    line-height: 1.25;
-    color: #55595c;
-    background-color: #fff;
-    background-image: none;
-    background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: .25rem;
-}
-  .list-group {
-    padding-left: 0;
-    margin-bottom: 0;
-}
-  .card {
-  position: relative;
-  display: block;
-  margin-bottom: .75rem;
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: .25rem;
-  height: auto;
-}
-#acard:hover
+  .headline{
+     font-size: 25px !important; border-bottom: 1px solid #1a3c7b !important ;background-color:beige !important ;text-align: center;
+  }
+ .MuiSnackbarContent-root
+ {
+   background-color: #1a3c7b!important;
+ }
+  #acard:hover
   {
     background-color: #e6e6e6;
   }
-     .product {
+  .hl{
+     font-size: 25px !important;text-align: center;margin-top: -60px
+  }
+    .product {
     margin: 0;
     overflow: auto;
 }
@@ -122,6 +84,25 @@
     background-color: #d9534f;
     border-color: #d43f3a;
 }
+  .btn-danger1 {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    margin-left: auto;
+}
+  .btn-Success {
+    color: #fff;
+    background-color: #1baa3c;
+    border-color: #05820d;
+    margin-left: auto;
+}
+  .btn-Warning {
+    color: #fff;
+    background-color: #f9a536;
+    border-color: #c97506;
+    margin-left: auto;
+}
+
   .thumbnail>img, .thumbnail a>img {
     margin-right: auto;
     margin-left: auto;
@@ -138,7 +119,7 @@ img {
     border: 0;
 }
 .product-list {
-    padding: 20px;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -149,3 +130,11 @@ img {
     list-style: none;
     width: 32%;
 }
+   #acard:hover
+  {
+    background-color: #e6e6e6;
+  }
+  
+  
+
+
