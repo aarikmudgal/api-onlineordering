@@ -130,7 +130,6 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       }
     })
       .then(function (response) {
-debugger;
         if (response.status === 200) {
           let order = JSON.parse(response.data.Order)
           window.sessionStorage.setItem('cartItemsCount', order.OrderedArticles.length);
@@ -152,12 +151,39 @@ debugger;
       count: this.state.count + 1
     });
   }
-  onButtonClick(e) {
+  onCheckoutClick(e) {
     var OrderDetails = this.state.orderDetails;
     window.sessionStorage.setItem('OrderTotalPrice', OrderDetails.OrderTotalPrice)
     window.sessionStorage.setItem('OrderId', OrderDetails.OrderId)
+
+    this.submitOrder();
+
     let me = this;
     me.props.history.push('/checkout');
+  }
+  submitOrder(){
+    
+    let me = this;
+    let url = urlContants.orderSubmit.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'));
+    axios.put(url, null,{
+      headers: {
+        'customerId': window.sessionStorage.getItem('CustomerId'),
+         'Content-Type': 'application/json',
+      }
+    })
+      .then(function (response) {
+        debugger;
+        if (response.status === 200) {
+          console.log('order submitted successfully', response);  
+        }
+        
+      })
+      .catch(function (error) {
+        debugger
+        console.log(error);
+        // TODO:remove below when toastr is implemented
+        //me.setState({passwordError:'Login failed! Username or password is incorrect'}); 
+      });
   }
   handleAddItemsToCart(e) {
     let me = this;
@@ -170,13 +196,11 @@ debugger;
       error,
       repos,
     }
-debugger;
     var OrderDetails = this.state.orderDetails;
     console.log('dhdhdhdhh', OrderDetails)
     let i = 0;
 
     if (this.state.orderDetails.OrderedArticles == 0 || this.state.orderDetails == null || this.state.orderDetails == undefined) {
-      debugger;
       return (
         <div>
           <div>
@@ -249,7 +273,7 @@ debugger;
               size="large"
               block
               colorOverride="dark-blue"
-              onClick={this.onButtonClick.bind(this)}
+              onClick={this.onCheckoutClick.bind(this)}
             >
               Checkout  (Grand Total  €{OrderDetails.OrderTotalPrice})
         </Button>
