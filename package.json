@@ -212,6 +212,7 @@
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "axios": "^0.18.0",
     "babel-polyfill": "6.23.0",
     "bootstrap": "^3.3.5",
