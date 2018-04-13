@@ -29,6 +29,8 @@ import Header from 'components/Header';
 import Divider from 'material-ui/Divider';
 import axios from 'axios';
 const urlContants = require('../App/appconstants/urlConstants');
+var async = require('async');
+
 import List, {
   ListItem,
   ListItemIcon,
@@ -56,23 +58,29 @@ export class HealthCheckPage extends React.PureComponent { // eslint-disable-lin
     }
 
     this.serviceObjects = [{
-      "serviceName": "Customers",
+      "serviceName": "Customers Service",
       "serviceUrl": "/api/customers/health",
       "serviceStatusCode": '',
       "serviceStatusText": ''
     },
-    {
-      "serviceName": "Articles",
-      "serviceUrl": "/api/articles/health",
-      "serviceStatusCode": '',
-      "serviceStatusText": ''
-    },
-    {
-      "serviceName": "Orders",
-      "serviceUrl": "/api/orders/health",
-      "serviceStatusCode": '',
-      "serviceStatusText": ''
-    }]
+      {
+        "serviceName": "Articles Service",
+        "serviceUrl": "/api/articles/health",
+        "serviceStatusCode": '',
+        "serviceStatusText": ''
+      },
+       {
+        "serviceName": "Inventory Service",
+        "serviceUrl": "/api/inventory/health",
+        "serviceStatusCode": '',
+        "serviceStatusText": ''
+      },
+      {
+        "serviceName": "Orders Service",
+        "serviceUrl": "/api/orders/health",
+        "serviceStatusCode": '',
+        "serviceStatusText": ''
+      }]
 
     this.urls = ["/api/customers/health", "/api/articles/health", "/api/orders/health"]
     this.promises = [];
@@ -81,34 +89,94 @@ export class HealthCheckPage extends React.PureComponent { // eslint-disable-lin
   componentDidMount() {
     this.fetchHealthDetails();
     this.interval = setInterval(this.fetchHealthDetails.bind(this), 30000);
-  }
-  fetchHealthDetails() {
-    debugger
-    let me = this;
-    this.serviceObjects.forEach(function (service) {
-      me.promises.push(axios.get(service.serviceUrl))
-    });
-   
 
-    axios.all(me.promises).then(function (results) {
-      debugger
-      results.forEach(function (response) {
-        debugger
-        let reqUrl = response.request.responseURL.slice(16);
-        let service = me.serviceObjects.find(service => service.serviceUrl === reqUrl);
-        service.serviceStatusCode = response.status;
-        service.serviceStatusText = response.statusText;
-      })
-      me.setState({ healthObjects: me.serviceObjects })
-    }).catch(function(response){
-      debugger
-// let reqUrl = response.request.responseURL.slice(16);
-//         let service = me.serviceObjects.find(service => service.serviceUrl === reqUrl);
-//         service.serviceStatusCode = response.status;
-//         service.serviceStatusText = response.statusText;
-return Promise.reject(response);
+
+  }
+  getHealthStatues(callback) {
+    console.log('Starting the process of getting the statues of the all the services');
+    //get all the services from the configurations
+    let services = this.serviceObjects;//config.get('services');
+    let statues = [];
+
+    let me = this;
+    //Iterate over the complete the array of services to get the statues
+    async.each(services, (service, cb) => {
+      console.log('Getting the status for service: ' + service.serviceName + ' with url: ' + service.serviceUrl);
+      try {
+         //perform get action to get the services.
+      axios.get(service.serviceUrl)
+        .then((res) => {
+          debugger;
+          console.log('Receive success status for service: ' + service.serviceName);
+          statues.push({
+            name: service.serviceName,
+            url: service.serviceUrl,
+            statuscode: res.status,
+            status: 'running'
+          });
+          cb();
+        })
+        .catch((err) => {
+          debugger;
+          if (err.response) {
+            console.log('Receive failed status for service: ' + service.serviceName);
+            statues.push({
+              name: service.serviceName,
+              url: service.serviceUrl,
+              statuscode: err.response.status,
+              status: 'not-running'
+            });
+          } else {
+            console.log('Status for service: ' + service.serviceName + ' not found');
+            statues.push({
+              name: service.serviceName,
+              url: service.serviceUrl,
+              statuscode: err.response.status,
+              status: 'not-found'
+            });
+          }
+
+          cb();
+        })
+      } catch (error) {
+        console.log('Error before calling the health endpoint');
+        cb();
+      }
+     
+    }, (asyncCallbackErr) => {
+      debugger;
+      if (asyncCallbackErr) {
+        console.log('Getting status for some service failed.');
+        return callback(asyncCallbackErr);
+      } else {
+        console.log('Getting status for all services completed successfully.');
+        statues = me._sortServices(statues);
+        return callback(null, statues);
+      }
+    });
+  }
+
+  _sortServices(statues) {
+    statues.sort((a, b) => {
+      let nameA = a.name.toUpperCase();
+      let nameB = b.name.toUpperCase();
+      return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
     })
 
+    return statues;
+  }
+
+  fetchHealthDetails() {
+    let me = this;
+    this.getHealthStatues((err, serviceStatus) => {
+      if (err) {
+        console.log("Some error fetching service health status")
+      } else {
+        me.setState({ healthObjects: serviceStatus })
+      }
+
+    })
+   
   }
   render() {
     const { loading, error, repos } = this.props;
@@ -117,40 +185,46 @@ return Promise.reject(response);
       error,
       repos,
     };
-    var HealthDetails = this.state.healthObjects;
+    debugger;
+    let services = this.state.healthObjects;
     let i = 0;
     return (
-      <div style={{background:'lightgray'}}>
+      <div style={{ background: 'lightgray' }}>
         <div>
           <Profile>
-            <Typography  style={{marginLeft:'400px'}}color="primary" variant="headline">Health Status</Typography>
+            <Typography  style={{ marginLeft: '400px' }}color="primary" variant="headline">Health Status</Typography>
           </Profile>
         </div>
         <div>
-          {HealthDetails && HealthDetails.map((healthStore, i) => {
-            var a=healthStore.serviceStatusCode;
-            debugger
-            return (
-              
-              <div key={i + 1} style={styles.root}> 
-                <List id="acard" >
-                  <ListItem>
-                    <div style={{ display: 'block' }}>
-                      <Typography variant="headline">{healthStore.serviceName}</Typography>
-                      <Typography style={{ fontWeight: 'bold' }} color="primary">http://127.0.0.1{healthStore.serviceUrl}</Typography>
-                      <Typography color="inherit">UrlCheck(http://127.0.0.1{healthStore.serviceUrl}):status code {healthStore.serviceStatusText}({healthStore.serviceStatusCode})</Typography>
-                    </div>
-                    {a==200?
-                    <Tag className="btn-Success">
-                      Healthy
-                    </Tag>:<Tag className="btn-danger1">
-                      UnHealthy
-                    </Tag>}
-                  </ListItem>
-                </List>
-              </div>
-            );
-          })}
+          {
+            services && services.map((service, i) => {
+              var status = service.statuscode;
+              debugger
+              return (
+
+                <div key={i + 1} style={styles.root}>
+                  <List id="acard" >
+                    <ListItem>
+                      <div style={{ display: 'block' }}>
+                        <Typography variant="headline">{service.name}</Typography>
+                        <Typography style={{ fontWeight: 'bold' }} color="primary">{service.url}</Typography>
+                        <Typography color="inherit"> 
+                          Status Code: {service.statuscode} Status: ({service.status}) 
+                        </Typography>
+                      </div>
+                      {
+                        status === 200 ?
+                          <Tag className="btn-Success">
+                            Healthy
+                          </Tag> :
+                          <Tag className="btn-danger1">
+                            UnHealthy
+                          </Tag>}
+                    </ListItem>
+                  </List>
+                </div>
+              );
+            }) }
         </div>
       </div>
     )

@@ -141,7 +141,8 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
           let order = JSON.parse(response.data.Order);
           window.sessionStorage.setItem('OrderId', order.OrderId);
           window.sessionStorage.setItem('cartItemsCount', order.OrderedArticles.length);
-          me.setstate({cartItemsCount: order.OrderedArticles.length})
+          //me.setstate({cartItemsCount: order.OrderedArticles.length})
+          me.props.history.push('/articleDetails');
         }
         else {
           console.log("Error recieved while fetching order : " + response.status);

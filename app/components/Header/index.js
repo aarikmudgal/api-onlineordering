@@ -6,7 +6,7 @@ import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
 import Banner from './banner.jpg';
-import logo from './metro-united-inverted.svg';
+import logo from '../../images/icon-120x120.png';//./metro-united-inverted.svg';
 import image1 from './avatar-example-image.png';
 import messages from './messages';
 import { Header, CompositeDropdown, LabelList, ProfilePicture, Address ,Media,MediaList} from 'metro-ui-components';

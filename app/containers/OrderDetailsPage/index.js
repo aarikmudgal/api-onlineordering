@@ -37,6 +37,7 @@ import TextField from 'material-ui/TextField';
 import Header from 'components/Header';
 import SvgIcon from 'material-ui/SvgIcon';
 import pricetag from './pricetag.png'
+import Tooltip from 'material-ui/Tooltip';
 import './Login.css';
 const urlContants = require('../App/appconstants/urlConstants');
 const styles = {
@@ -161,22 +162,22 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
     let me = this;
     me.props.history.push('/checkout');
   }
-  submitOrder(){
-    
+  submitOrder() {
+
     let me = this;
     let url = urlContants.orderSubmit.replace("[ORDER_ID]", window.sessionStorage.getItem('OrderId'));
-    axios.put(url, null,{
+    axios.put(url, null, {
       headers: {
         'customerId': window.sessionStorage.getItem('CustomerId'),
-         'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       }
     })
       .then(function (response) {
         debugger;
         if (response.status === 200) {
-          console.log('order submitted successfully', response);  
+          console.log('order submitted successfully', response);
         }
-        
+
       })
       .catch(function (error) {
         debugger
@@ -204,19 +205,19 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       return (
         <div>
           <div>
-            <Profilepanel onCartClick={this.onCartClick.bind(this)}
-            />
+            <Profilepanel onCartClick={this.onCartClick.bind(this) }
+              />
           </div>
-          <Card id="acard" style={{ margin: '20px',paddingTop:'100px', height: '100%' }}>
+          <Card id="acard" style={{ margin: '20px', paddingTop: '100px', height: '100%' }}>
             <CardMedia>
               <div style={{ marginLeft: '22%' }}>
-                <img src={require("./emptycart.png")} />
+                <img src={require("./emptycart.png") } />
               </div>
             </CardMedia>
             <div style={{ marginLeft: '380px', marginTop: '50px', marginBottom: '50px' }}>
-              <Button kind="primaryRaised" onClick={this.handleAddItemsToCart.bind(this)}>
+              <Button kind="primaryRaised" onClick={this.handleAddItemsToCart.bind(this) }>
                 Add Items To Cart
-                      </Button>
+              </Button>
             </div>
           </Card>
         </div>
@@ -226,8 +227,8 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       return (
         <div>
           <div style={{ marginBottom: '90px' }}>
-            <Profilepanel onCartClick={this.onCartClick.bind(this)}
-                cartItemsCount={window.sessionStorage.getItem('cartItemsCount')}    />
+            <Profilepanel onCartClick={this.onCartClick.bind(this) }
+              cartItemsCount={window.sessionStorage.getItem('cartItemsCount') }    />
           </div>
           <div>
             <ul className="product-list">
@@ -242,28 +243,39 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
                         <img src={imageUrl} alt="product" style={{ width: '150px', height: '150px' }} />
                         <div className="caption">
                           <h3>{articleStore.ArticleName}</h3>
-                          <span style={{display:'flex'}}>
-                          <h5 style={{ marginRight: '146px' }}>{articleStore.ArticleDescription}</h5>
-                          <h5 style={{ color: 'red' }}>Units:{articleStore.Quantity}</h5>
+                          <span style={{ display: 'flex' }}>
+                            <h5 style={{ marginRight: '146px' }}>{articleStore.ArticleDescription}</h5>
+                            <h5 style={{ color: 'red' }}>Units: {articleStore.Quantity}</h5>
                           </span>
-                          <img src={require("./pricetag2.png")} />
-                          <div className="product__price">{"€ " + articleStore.ArticlePrice}</div>
-                          <img style={styles.icon} src={require("./pricetag.png")} />
-                          <div className="product__price">{"€ " + articleStore.TotalPrice}</div>
+                          <Tooltip id="tooltip-icon1" title="Unit Price">
+                            <div>
+                              <img src={require("./pricetag2.png") } />
+                              <div className="product__price">{"€ " + articleStore.ArticlePrice}</div>
+                            </div>
+                          </Tooltip>
+
+                          <Tooltip id="tooltip-icon2" title="Total Price">
+                            <div>
+                              <img style={styles.icon} src={require("./pricetag.png") } />
+
+                              <div className="product__price">{"€ " + articleStore.TotalPrice}</div>
+                            </div>
+                          </Tooltip>
+
                           <div className="product__button-wrap">
                             <button
                               className={'btn btn-danger'}
-                              onClick={(e) => this.handleRemoveArticle(e, articleStore)}
-                            >
+                              onClick={(e) => this.handleRemoveArticle(e, articleStore) }
+                              >
                               Remove
-                        </button>
+                            </button>
                           </div>
                         </div>
                       </div>
                     </li>
 
                   );
-                })}
+                }) }
 
             </ul>
           </div>
@@ -273,10 +285,10 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
               size="large"
               block
               colorOverride="dark-blue"
-              onClick={this.onCheckoutClick.bind(this)}
-            >
+              onClick={this.onCheckoutClick.bind(this) }
+              >
               Checkout  (Grand Total  €{OrderDetails.OrderTotalPrice})
-        </Button>
+            </Button>
           </div>
         </div >
       )

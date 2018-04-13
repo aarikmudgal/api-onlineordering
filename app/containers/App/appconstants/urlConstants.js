@@ -11,5 +11,6 @@ var urls = {
   articleListHealth: '/api/articles/health',
   ordersHealth: '/api/orders/health',
   customersHealth: '/api/customers/health',
+
 }
 module.exports = urls;

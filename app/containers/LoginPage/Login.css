@@ -31,7 +31,7 @@
 
  .intro-header {
    margin-top: 0px!important;
-   background: url('Metro1.png') no-repeat center center;
+   /*background: url('Metro1.png') no-repeat center center;*/
    background-size: cover;
 }
   .w {
