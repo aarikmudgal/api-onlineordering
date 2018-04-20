@@ -247,6 +247,11 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
           {ArticleDetails && ArticleDetails.map((articleStore, i) => {
             articleStore.Quantity = 1;
             let imageUrl = urlContants.articleImage.replace("[IMAGE_URL]", articleStore.articleImageUrl); 
+            let isDisabled = articleStore.articleStockStatus === "OUT OF STOCK" ? 
+                               true : false;
+            let stockLabelStyle = articleStore.articleStockStatus === "IN STOCK" ? 
+                                { color: 'green', fontSize: 'large', marginTop: '35px', marginLeft: '25px' } :
+                                { color: 'red', fontSize: 'large', marginTop: '35px', marginLeft: '25px' }
             return (
               <div key={i + 1} style={{ padding: '10px'}}>
                 <Card id="acard" style={styles.card}> 
@@ -273,10 +278,14 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
                           onChange={(e) => this.handleQuantityChange(e, articleStore)}
                           margin="normal"
                         />
+                        <Typography style={stockLabelStyle}>
+                          {articleStore.articleStockStatus}
+                        </Typography>
                       </div>
                     </CardContent>
                     <CardActions style={{ marginLeft: '10px' }}>
-                      <Button size="large" onClick={this.handleArticleAdd.bind(this, articleStore)}>Add</Button>
+                       <Button size="large" onClick={this.handleArticleAdd.bind(this, articleStore)}
+                          disabled={isDisabled}>Add</Button>
                       <CardMedia
                       id="articleimage"
                         style={styles.cover}
