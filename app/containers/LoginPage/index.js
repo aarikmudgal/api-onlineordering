@@ -130,6 +130,7 @@ handleCreateAccount()
 <h1 className='headline  fade-in'>Welcome To Online Ordering</h1>
       <Card className="w" style={{marginLeft:'100px',marginTop:'20px',marginBottom:'100px',marginRight:'100px'}}>
         
+        <form >
         <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '150px' }}>
           <Input
             id="custid"
@@ -161,7 +162,7 @@ handleCreateAccount()
               block={true}
               disabled={false}
               kind="primaryRaised"
-              type="button"
+              type="submit"
               waiting={false}
               colorOverride="dark-blue"
               onClick={this.onLoginClick.bind(this) }
@@ -175,6 +176,7 @@ handleCreateAccount()
             </p>
           </div>
         </div>
+        </form>
       </Card>
 </div>
 

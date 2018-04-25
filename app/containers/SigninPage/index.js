@@ -50,14 +50,14 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
       lastname: '',
       username: '',
       password: '',
-      confirmpassword:'',
+      confirmpassword: '',
       status: '',
       firstnameerror: '',
       lastnameerror: '',
       usernameError: '',
       passwordError: '',
-      confirmpasswordError:'',
-       open: false
+      confirmpasswordError: '',
+      open: false
     }
   }
   handleRequestClose() {
@@ -73,7 +73,7 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
   }
   validateData() {
     let isValid = false;
-    if (!this.isEmpty(this.state.firstname) && !this.isEmpty(this.state.lastname) && !this.isEmpty(this.state.username) && !this.isEmpty(this.state.password)&& !this.isEmpty(this.state.confirmpassword)) {
+    if (!this.isEmpty(this.state.firstname) && !this.isEmpty(this.state.lastname) && !this.isEmpty(this.state.username) && !this.isEmpty(this.state.password) && !this.isEmpty(this.state.confirmpassword)) {
       isValid = true;
     }
 
@@ -82,7 +82,7 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
       lastnameerror: this.isEmpty(this.state.lastname) ? 'LastName is required' : '',
       usernameError: this.isEmpty(this.state.username) ? 'Username is required' : '',
       passwordError: this.isEmpty(this.state.password) ? 'Password is required' : '',
-      confirmpasswordError:this.isEmpty(this.state.confirmpassword) ? 'Password doesn not match' : ''
+      confirmpasswordError: this.isEmpty(this.state.confirmpassword) ? 'Password doesn not match' : ''
     })
     return isValid;
   }
@@ -93,11 +93,11 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
     if (this.validateData()) {
       let me = this;
       const userData = {
-        firstName:this.state.firstname,
-        lastName:this.state.lastname,
+        firstName: this.state.firstname,
+        lastName: this.state.lastname,
         userName: this.state.username,
         password: this.state.password,
-        confirmpassword:this.state.confirmpassword
+        confirmpassword: this.state.confirmpassword
       }
       axios.post(urlContants.signin,
         JSON.stringify(userData), {
@@ -111,7 +111,7 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
           let status = response.status === 200 ? loginStatus.SIGNIN_SUCCESS : loginStatus.SIGNIN_FAILED;
           me.setState({ status: status });
           me.setState({ open: true })
-          me.setState({firstname: '',lastname: '',username: '',password: '',confirmpassword:''})
+          me.setState({ firstname: '', lastname: '', username: '', password: '', confirmpassword: '' })
         })
         .catch(function (error) {
           me.setState({ status: loginStatus.SIGNIN_FAILED });
@@ -151,90 +151,91 @@ export class SigninPage extends React.PureComponent { // eslint-disable-line rea
     return (<div className='intro-header'>
       <h1 className='headline  fade-in'>Sign in to Online Ordering</h1>
       <Card className="w" style={{ marginLeft: '100px', marginTop: '20px', marginBottom: '100px', marginRight: '100px' }}>
-
-        <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px' }}>
-          <Input
-            id="fname"
-            type="text"
-            label="First Name"
-            name="fname"
-            placeholder="First Name"
-            required={true}
-            errorMessage={this.state.firstnameerror}
-            inputClassName="extra-class-on-input-tag"
-            value={this.state.firstname}
-            onChange={this.onFirstNameChange.bind(this)}
-          />
-          <Input
-            id="lname"
-            type="text"
-            label="Last Name"
-            name="lname"
-            placeholder="Last Name"
-            required={true}
-            errorMessage={this.state.lastnameerror}
-            inputClassName="extra-class-on-input-tag"
-            value={this.state.lastname}
-            onChange={this.onLastNameChange.bind(this)}
-          />
-          <Input
-            id="custid"
-            type="text"
-            label="User Name" 
-            name="name"
-            placeholder="User Name"
-            required={true} 
-            errorMessage={this.state.usernameError}
-            inputClassName="extra-class-on-input-tag"
-            value={this.state.username}
-            onChange={this.onUserNameChange.bind(this)}
-          />
-          <Input.Password
-            id="password"
-            type="password"
-            label="Password"
-            name="name"
-            placeholder="Password"
-            required={true}
-            errorMessage={this.state.passwordError}
-            inputClassName="extra-class-on-input-tag"
-            value={this.state.password}
-            onChange={this.onPasswordChange.bind(this)}
-          />
-          <Input.Password
-            id="confirmpassword"
-            type="password"
-            label="Confirm Password"
-            name="name"
-            placeholder="Confirm Password"
-            required={true}
-            errorMessage={this.state.confirmpasswordError}
-            inputClassName="extra-class-on-input-tag"
-            value={this.state.confirmpassword}
-            onChange={this.onConfirmPasswordChange.bind(this)}
-          />
-          <div style={{ marginTop: '50px' }}>
-            <Button
-              TagName="button" 
-              block={true}
-              disabled={false}
-              kind="primaryRaised"
-              type="button"
-              waiting={false}
-              colorOverride="dark-blue"
-              onClick={this.onSignClick.bind(this)}
-            >
-              Sign Up
-            </Button>
-            <p style={{ textAlign: 'center' }}>Already a user?<a href="" style={{ fontSize: 'larger', color: 'black' }} onClick={this.handleCreateAccount.bind(this)}>Login</a></p>
+        <form>
+          <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px' }}>
+            <Input
+              id="fname"
+              type="text"
+              label="First Name"
+              name="fname"
+              placeholder="First Name"
+              required={true}
+              errorMessage={this.state.firstnameerror}
+              inputClassName="extra-class-on-input-tag"
+              value={this.state.firstname}
+              onChange={this.onFirstNameChange.bind(this) }
+              />
+            <Input
+              id="lname"
+              type="text"
+              label="Last Name"
+              name="lname"
+              placeholder="Last Name"
+              required={true}
+              errorMessage={this.state.lastnameerror}
+              inputClassName="extra-class-on-input-tag"
+              value={this.state.lastname}
+              onChange={this.onLastNameChange.bind(this) }
+              />
+            <Input
+              id="custid"
+              type="text"
+              label="User Name"
+              name="name"
+              placeholder="User Name"
+              required={true}
+              errorMessage={this.state.usernameError}
+              inputClassName="extra-class-on-input-tag"
+              value={this.state.username}
+              onChange={this.onUserNameChange.bind(this) }
+              />
+            <Input.Password
+              id="password"
+              type="password"
+              label="Password"
+              name="name"
+              placeholder="Password"
+              required={true}
+              errorMessage={this.state.passwordError}
+              inputClassName="extra-class-on-input-tag"
+              value={this.state.password}
+              onChange={this.onPasswordChange.bind(this) }
+              />
+            <Input.Password
+              id="confirmpassword"
+              type="password"
+              label="Confirm Password"
+              name="name"
+              placeholder="Confirm Password"
+              required={true}
+              errorMessage={this.state.confirmpasswordError}
+              inputClassName="extra-class-on-input-tag"
+              value={this.state.confirmpassword}
+              onChange={this.onConfirmPasswordChange.bind(this) }
+              />
+            <div style={{ marginTop: '50px' }}>
+              <Button
+                TagName="button"
+                block={true}
+                disabled={false}
+                kind="primaryRaised"
+                type="submit"
+                waiting={false}
+                colorOverride="dark-blue"
+                onClick={this.onSignClick.bind(this) }
+                >
+                Sign Up
+              </Button>
+              <p style={{ textAlign: 'center' }}>Already a user?<a href="" style={{ fontSize: 'larger', color: 'black' }} onClick={this.handleCreateAccount.bind(this) }>Login</a></p>
+            </div>
           </div>
-        </div>
+        </form>
       </Card>
       <Snackbar
-          open={this.state.open}
-          message="Customer added successfully"
-          autoHideDuration={4000}
-          onClose={this.handleRequestClose.bind(this)}
+        open={this.state.open}
+        message="Customer added successfully"
+        autoHideDuration={4000}
+        onClose={this.handleRequestClose.bind(this) }
         />
     </div>
 
