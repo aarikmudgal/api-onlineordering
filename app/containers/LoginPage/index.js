@@ -72,7 +72,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
   }
 handleCreateAccount()
 { let me=this;
-  me.props.history.push('/signin');
+  me.props.history.push('/signup');
 }
   onLoginClick(e) {
     //this.props.customerLogin(this.state.username, this.state.password);

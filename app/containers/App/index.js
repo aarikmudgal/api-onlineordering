@@ -9,10 +9,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginPage from 'containers/LoginPage/Loadable';
-import SigninPage from 'containers/SigninPage/Loadable';
+import SignupPage from 'containers/SigninPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import ArticleDetailsPage from 'containers/ArticleDetailsPage/Loadable';
@@ -46,15 +46,16 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/signin" component={LoginPage} />
         <Route path="/articleDetails" component={ArticleDetailsPage} />
         <Route path="/orderDetails" component={OrderDetailsPage} />
         <Route path="/checkout" component={CheckoutPage} />
         <Route path="/health" component={HealthCheckPage} />
-        <Route path="/signin" component={SigninPage}/>
+        <Route path="/signup" component={SignupPage}/>
+        <Redirect from="/" to="/signin" />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      <Footer />
+      
     </AppWrapper>
   );
 }
