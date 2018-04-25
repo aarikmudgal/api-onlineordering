@@ -54,10 +54,6 @@ class Header1 extends React.Component { // eslint-disable-line react/prefer-stat
                       {window.sessionStorage.getItem('CustomerName')}
                     </strong>
                     <br />
-                    <a  >
-                      Profile & Settings
-                    </a>
-                    <br />
                     <a  onClick={this.onLogoutClick.bind(this)}>
                       Logout
                     </a>
