@@ -3,3 +3,6 @@
   .m-header-isRelative .m-header-inner {
      position: fixed !important; 
 }
+.m-header-logo{
+  display: none !important;
+}

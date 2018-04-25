@@ -40,10 +40,7 @@ class Header1 extends React.Component { // eslint-disable-line react/prefer-stat
       {window.sessionStorage.getItem('CustomerId') ? 
         <CompositeDropdown
           userName={window.sessionStorage.getItem('CustomerName')}
-          companyName="Infosys Technologies Limited"
-          abbreviation="Infy"
           color="#CE61E0"
-          badgeCount={1}
         >
           <LabelList>
             <LabelList.Item>

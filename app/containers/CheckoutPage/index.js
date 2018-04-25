@@ -53,12 +53,16 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
       phone: '',
       expiry: '',
       cvc: '',
-      email:'',
-      cardno:''
+      email: '',
+      cardno: ''
     }
   }
   componentDidMount() {
-    
+
+  }
+  handleAddItemsToCart(e) {
+    let me = this;
+    me.props.history.push('/articleDetails');
   }
   isEmpty(str) {
     if (!str || !str.trim().length > 0) {
@@ -68,15 +72,15 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
   }
   validateData() {
     let isValid = false;
-    if(!this.isEmpty(this.state.name) && !this.isEmpty(this.state.email)&& !this.isEmpty(this.state.address)&&!this.isEmpty(this.state.phone)&& !this.isEmpty(this.state.expiry)&& !this.isEmpty(this.state.cvc)&& !this.isEmpty(this.state.cardno)){
+    if (!this.isEmpty(this.state.name) && !this.isEmpty(this.state.email) && !this.isEmpty(this.state.address) && !this.isEmpty(this.state.phone) && !this.isEmpty(this.state.expiry) && !this.isEmpty(this.state.cvc) && !this.isEmpty(this.state.cardno)) {
       isValid = true;
     }
 
     this.setState({
       nameError: this.isEmpty(this.state.name) ? 'Name is required' : '',
       cardError: this.isEmpty(this.state.cardno) ? 'Long number on the back of your card ' : '',
-      cvcError: this.isEmpty(this.state.cvc) ? 'Three digits located on the back of your card' : '',    
-      phoneError: this.isEmpty(this.state.phone) ? 'Phone No is required' : '',             
+      cvcError: this.isEmpty(this.state.cvc) ? 'Three digits located on the back of your card' : '',
+      phoneError: this.isEmpty(this.state.phone) ? 'Phone No is required' : '',
       addressError: this.isEmpty(this.state.address) ? 'Address is required' : '',
       emailError: this.isEmpty(this.state.email) ? 'Email Id is required' : '',
       expiryError: this.isEmpty(this.state.expiry) ? 'Expiry Date is required' : '',
@@ -115,20 +119,20 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
     let me = this;
     me.props.history.push('/orderDetails');
   }
-  handleBackClick(e){
+  handleBackClick(e) {
     let me = this;
     me.props.history.push('/orderDetails');
   }
   deleteAllCookies() {
     debugger
     var cookies = document.cookie.split(";");
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
-}
+  }
   logout(e) {
     e.preventDefault();
     localStorage.clear();
@@ -147,119 +151,18 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
 
     return (
       <div>
-        <div>
-            <Profilepanel onCartClick={this.onCartClick.bind(this)} 
-                     />
-          </div>
-        <Card style={{ marginTop: '120px',marginLeft:'10px',marginRight:'10px' }}>
-          <h1 className='headline'>Checkout</h1>
-          <div style={{ borderBottom: '1px solid rgb(238, 238, 238)', padding: '100px', marginBottom: '10px'}}>
-            <h1 className='hl'>Add Customer Details</h1>
-            <Input.Text
-              TagName="input"
-              id="name"
-              inputClassName="extra-class-on-input-tag"
-              label="Name"
-              name="name"
-              placeholder="John Doe"
-              required={true}
-              type="text"
-              errorMessage={this.state.nameError}
-              value={this.state.name}
-              onChange={this.onNameChange.bind(this) }
-            />
-            <Input.Email
-              TagName="input"
-              hasWarning={false}
-              id="email"
-              inputClassName="extra-class-on-input-tag"
-              label="Email"
-              name="email"
-              required={true}
-              type="email"
-              errorMessage={this.state.emailError}
-              value={this.state.email}
-              placeholder="john@example.com"
-              onChange={this.onEmailChange.bind(this) }
-            />
-            <Input.Tel
-              TagName="input"
-              id="phone"
-              inputClassName="extra-class-on-input-tag"
-              label="Phone"
-              name="phone"
-              errorMessage={this.state.phoneError}
-              placeholder="+44 207 123 4567"
-              required={true}
-              value={this.state.phone}
-              type="tel"
-              onChange={this.onPhoneChange.bind(this) }
-            />
-            <Input.Tel
-              TagName="input"
-              id="cardno "
-              inputClassName="extra-class-on-input-tag"
-              label="Card Number"
-              name="phone"
-              errorMessage={this.state.cardError}
-              placeholder="1234 5678 9102 2457"
-              required={true}
-              type="tel"
-              value={this.state.cardno}
-              onChange={this.onCardChange.bind(this) }
-            />
-            <Input.Tel
-              TagName="input"
-              id="cvc "
-              errorMessage={this.state.cvcError}
-              inputClassName="extra-class-on-input-tag"
-              label="CVC"
-              name="cvc"
-              placeholder="123"
-              required={true}
-              errorMessage={this.state.cvcError}
-              type="tel"
-              value={this.state.cvc}
-              onChange={this.onCvcChange.bind(this) }
-            />
-            <Input.Date
-              TagName="input"
-              id="ExpDate "
-              inputClassName="extra-class-on-input-tag"
-              label="Expiry"
-              name="Expiry"
-              placeholder="10/17"
-              errorMessage={this.state.expiryError}
-              required={true}
-              type="text"
-              value={this.state.expiry}
-              onChange={this.onExpiryChange.bind(this) }
-            />
-            <Input.TextArea
-              TagName="textarea"
-              id="address "
-              inputClassName="extra-class-on-input-tag"
-              label="Address"
-              name="address"
-              errorMessage={this.state.addressError}
-              placeholder="1 Chapel hill,heswal,BOURNEMOUTH,UK,BH 1AA"
-              required={true}
-              type="text"
-              value={this.state.address}
-              onChange={this.onAddressChange.bind(this) }
-            />
-            <Button
-            kind="primaryRaised"
-            size="large"
-            block
-            colorOverride="dark-blue"
-            onClick={this.onPayClick.bind(this)}
-          >
-            Pay  (Grand Total  €{ window.sessionStorage.getItem('OrderTotalPrice')})
-        </Button>
+        <h1 className='headline'>Checkout</h1>
+        <Card id="acard" style={{ margin: '20px', padding: '10px', height: '100%' }}>
+          <h2 style={{ color: 'green' }}>Your order has been successfully placed!</h2>
+          <h2 style={{ color: 'green' }}>Order Id: {window.sessionStorage.getItem('OrderId') }</h2>
+          <div style={{ marginLeft: '380px', marginTop: '50px', marginBottom: '50px' }}>
+            <Button kind="primaryRaised" onClick={this.handleAddItemsToCart.bind(this) }>
+              Continue Shopping
+            </Button>
           </div>
         </Card>
       </div>
+
     )
   }
 }

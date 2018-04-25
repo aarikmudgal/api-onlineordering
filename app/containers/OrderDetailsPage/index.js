@@ -205,7 +205,7 @@ export class OrderDetailsPage extends React.PureComponent { // eslint-disable-li
       return (
         <div>
           <div>
-            <Profilepanel onCartClick={this.onCartClick.bind(this) }
+            <Profilepanel onCartClick={this.onCartClick.bind(this) }cartItemsCount={window.sessionStorage.getItem('cartItemsCount')}
               />
           </div>
           <Card id="acard" style={{ margin: '20px', paddingTop: '100px', height: '100%' }}>
