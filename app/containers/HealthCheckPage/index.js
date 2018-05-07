@@ -226,7 +226,7 @@ export class HealthCheckPage extends React.PureComponent { // eslint-disable-lin
               );
             }) }
         </div>
-                        <div style={{ marginTop: '50px' }}>
+                   /*     <div style={{ marginTop: '50px' }}>
                          <iframe src="https://public.google.stackdriver.com/public/chart/11645122360911691418?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
                        </div>
                        <div  style={{ marginTop: '50px' }}>
@@ -240,7 +240,7 @@ export class HealthCheckPage extends React.PureComponent { // eslint-disable-lin
                          </div>
                        <div style={{ marginTop: '50px' }} >
                          <iframe src="https://public.google.stackdriver.com/public/chart/11645122360911688442?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                       </div>
+                       </div>  */
       </div>
     )
   }
