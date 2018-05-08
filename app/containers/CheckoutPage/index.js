@@ -154,7 +154,7 @@ export class CheckoutPage extends React.PureComponent { // eslint-disable-line r
         <h1 className='headline'>Checkout</h1>
         <Card id="acard" style={{ margin: '20px', padding: '10px', height: '100%' }}>
           <h2 style={{ color: 'green' }}>Your order has been successfully placed!</h2>
-          <h2 style={{ color: 'green' }}>Order Id: {window.sessionStorage.getItem('OrderId') }</h2>
+          <h2 style={{ color: 'green' }}>Order Id: OO-{window.sessionStorage.getItem('OrderId').substr(0,8)}</h2>
           <div style={{ marginLeft: '380px', marginTop: '50px', marginBottom: '50px' }}>
             <Button kind="primaryRaised" onClick={this.handleAddItemsToCart.bind(this) }>
               Continue Shopping
