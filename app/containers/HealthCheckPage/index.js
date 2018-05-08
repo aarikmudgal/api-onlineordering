@@ -226,21 +226,6 @@ export class HealthCheckPage extends React.PureComponent { // eslint-disable-lin
               );
             }) }
         </div>
-                   /*     <div style={{ marginTop: '50px' }}>
-                         <iframe src="https://public.google.stackdriver.com/public/chart/11645122360911691418?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                       </div>
-                       <div  style={{ marginTop: '50px' }}>
-                         <iframe src="https://public.google.stackdriver.com/public/chart/8303522826034065945?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                       </div>
-                       <div  style={{ marginTop: '50px' }}>
-                         <iframe src="https://public.google.stackdriver.com/public/chart/9744838719229708699?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                       </div>
-                       <div  style={{ marginTop: '50px' }}>
-                         <iframe src="https://public.google.stackdriver.com/public/chart/14908325351524585133?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                         </div>
-                       <div style={{ marginTop: '50px' }} >
-                         <iframe src="https://public.google.stackdriver.com/public/chart/11645122360911688442?drawMode=color&showLegend=true&theme=light" width="100%" height="400" scrolling="no" seamless="seamless"></iframe>
-                       </div>  */
       </div>
     )
   }
