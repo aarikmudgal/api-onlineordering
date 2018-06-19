@@ -169,7 +169,7 @@ handleCreateAccount()
               >
               Login
             </Button>
-            <p style={{textAlign:'center'}}>Not Registered?&nbsp;
+            <p style={{textAlign:'center'}}>Not Registered Yet ?&nbsp;
               <a href=""style={{fontSize:'larger',color:'black'}}onClick={this.handleCreateAccount.bind(this)}>
                  Create an account
               </a>
