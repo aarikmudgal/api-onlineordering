@@ -249,9 +249,9 @@ export class ArticleDetailsPage extends React.PureComponent { // eslint-disable-
             let imageUrl = urlContants.articleImage.replace("[IMAGE_URL]", articleStore.articleImageUrl); 
             let isDisabled = articleStore.articleStockStatus === "OUT OF STOCK" ? 
                                true : false;
-            let stockLabelStyle = articleStore.articleStockStatus === "IN STOCK" ? 
-                                { color: 'green', fontSize: 'large', marginTop: '35px', marginLeft: '25px' } :
-                                { color: 'red', fontSize: 'large', marginTop: '35px', marginLeft: '25px' }
+            let stockLabelStyle = articleStore.articleStockStatus === "OUT OF STOCK" ? 
+                                { color: 'red', fontSize: 'large', marginTop: '35px', marginLeft: '25px' } :
+                                { color: 'green', fontSize: 'large', marginTop: '35px', marginLeft: '25px' }
             return (
               <div key={i + 1} style={{ padding: '10px'}}>
                 <Card id="acard" style={styles.card}> 
