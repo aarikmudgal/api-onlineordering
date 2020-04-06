@@ -229,7 +229,7 @@
     "ip": "1.1.5",
     "lodash": "4.17.4",
     "material-ui": "^1.0.0-beta.40",
-    "minimist": "1.2.0",
+    "minimist": "1.2.3",
     "npm-registry": "^0.1.13",
     "prop-types": "15.5.10",
     "react": "15.6.1",
