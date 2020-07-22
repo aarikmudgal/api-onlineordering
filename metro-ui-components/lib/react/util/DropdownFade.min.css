@@ -1,2 +1,0 @@
-/* metro-ui-components@3.1.0 */
-.dropdownFade-enter{display:block;transform:translateY(-10px);opacity:0}.dropdownFade-enter-active{transition:transform .15s,opacity .15s}.dropdownFade-enter-active,.dropdownFade-exit{transform:translateY(0);opacity:1}.dropdownFade-exit-active{transition:transform .15s,opacity .15s;transform:translateY(-10px);opacity:0}

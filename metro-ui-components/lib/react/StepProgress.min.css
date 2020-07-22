@@ -1,2 +1,0 @@
-/* metro-ui-components@3.1.0 */
-.m-stepProgress{height:.375rem;background-color:#f2f3f5;overflow:hidden}.m-stepProgress-inner{position:relative;width:0;background-color:#34c082}.m-stepProgress-active,.m-stepProgress-inner{height:100%;will-change:width;transition:width .15s}.m-stepProgress-active{position:absolute;right:0;top:0;background-color:#cce0ff;animation:2s a ease-in-out infinite}@keyframes a{0%{background-color:#dbe9ff}50%{background-color:#adcdff}to{background-color:#dbe9ff}}

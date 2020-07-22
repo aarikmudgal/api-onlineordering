@@ -1,2 +1,0 @@
-/* metro-ui-components@3.1.0 */
-.m-contentFade{position:relative;display:block;overflow:hidden;-ms-flex-positive:1;flex-grow:1;will-change:height;transition:height .25s}.m-contentFade-enter{position:relative;z-index:1;opacity:0;overflow:hidden;transition:opacity .25s;transition-delay:.45s}.m-contentFade-enter-active{will-change:opacity;opacity:1}.m-contentFade-exit{position:absolute;top:0;left:0;right:0;bottom:0;z-index:0;opacity:1;transition:opacity .25s}.m-contentFade-exit-active{will-change:opacity;opacity:0}
